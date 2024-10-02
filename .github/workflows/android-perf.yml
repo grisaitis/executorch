@@ -238,3 +238,28 @@ jobs:
       test-spec: ${{ inputs.test_spec || 'https://ossci-android.s3.amazonaws.com/executorch/android-llm-device-farm-test-spec.yml' }}
       # Uploaded to S3 from the previous job
       extra-data: https://gha-artifacts.s3.amazonaws.com/${{ github.repository }}/${{ github.run_id }}/artifacts/${{ matrix.model }}_${{ matrix.delegate }}/model.zip
+
+  upload-benchmark-results:
+    needs:
+      - benchmark-on-device
+    strategy:
+      matrix:
+        model: ${{ fromJson(needs.set-parameters.outputs.models) }}
+        delegate: ${{ fromJson(needs.set-parameters.outputs.delegates) }}
+        device: ${{ fromJson(needs.set-parameters.outputs.devices) }}
+      fail-fast: false
+    runner: linux.2xlarge
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: false
+
+      - name: Extract the benchmark results JSON
+        env:
+          ALL_BENCHMARK_ARTIFACTS: ${{ needs.benchmark-on-device.outputs.artifacts }}
+        shell: bash
+        run: |
+          set -eux
+
+          echo "${ALL_BENCHMARK_ARTIFACTS}"
+          python3 .github/scripts/extract_benchmark_results.py --artifacts "${ALL_BENCHMARK_ARTIFACTS}"
