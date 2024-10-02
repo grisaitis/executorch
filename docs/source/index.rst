@@ -208,7 +208,7 @@ Topics in this section will help you get started with ExecuTorch.
    sdk-debugging
    sdk-inspector
    memory-planning-inspection
-   sdk-delegate-integration
+   delegate-debug
    devtools-tutorial
 
 .. toctree::
