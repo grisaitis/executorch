@@ -241,6 +241,7 @@ jobs:
 
   upload-benchmark-results:
     needs:
+      - set-parameters
       - benchmark-on-device
     strategy:
       matrix:
