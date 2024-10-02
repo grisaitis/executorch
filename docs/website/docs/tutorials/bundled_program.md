@@ -1,4 +1,4 @@
-DEPRECATED: This document is moving to //executorch/docs/source/sdk-bundled-io.md
+DEPRECATED: This document is moving to //executorch/docs/source/bundled-io.md
 
 # Bundled Program
 
