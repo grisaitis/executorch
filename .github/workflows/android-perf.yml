@@ -248,7 +248,7 @@ jobs:
         delegate: ${{ fromJson(needs.set-parameters.outputs.delegates) }}
         device: ${{ fromJson(needs.set-parameters.outputs.devices) }}
       fail-fast: false
-    runner: linux.2xlarge
+    runs-on: linux.2xlarge
     steps:
       - uses: actions/checkout@v3
         with:
